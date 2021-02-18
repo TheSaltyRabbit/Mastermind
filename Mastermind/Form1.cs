@@ -16,28 +16,41 @@ namespace Mastermind
     public partial class Form1 : Form
     {
         //Initialize Variables
-        public int guessColor1, guessColor2, guessColor3, guessColor4, maxColors, guessCounter, correctSpot, wrongSpot, wrongColor;
+        public int maxColors, guessCounter, correctSpot, wrongSpot, wrongColor;
         public bool gameOver;
+        public int[] guessColor = { 0, 0, 0, 0 };
         public int[] CorrectAnswer = { 0, 0, 0, 0 };
         public int[] GuessChecker = { 0, 0, 0, 0 };
         public int[] PlayerGuess = { 0, 0, 0, 0 };
 
-        //Sets buttons to cycle ROYGBV on left click and VBGYOR on right
+        //Sets buttons to cycle Red Orange Yellow Green Blue Purple on left click
+        //and backwards on right click
+        private void btnGuess1_MouseUp(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    ColorChangerUp(0);
+                    break;
+
+                case MouseButtons.Right:
+                    ColorChangerDown(0);
+                    break;
+            }
+        }
+
         private void btnGuess2_MouseUp(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    guessColor2 = guessColor2 + 1;
+                    ColorChangerUp(1);
                     break;
 
                 case MouseButtons.Right:
-                    guessColor2 = guessColor2 - 1;
+                    ColorChangerDown(1);
                     break;
             }
-            if (guessColor2 <= 0) guessColor2 = maxColors;
-            if (guessColor2 > maxColors) guessColor2 = 1;
-            ButtonColorUpdate();
         }
 
         private void btnGuess3_MouseUp(object sender, MouseEventArgs e)
@@ -45,16 +58,13 @@ namespace Mastermind
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    guessColor3 = guessColor3 + 1;
+                    ColorChangerUp(2);
                     break;
 
                 case MouseButtons.Right:
-                    guessColor3 = guessColor3 - 1;
+                    ColorChangerDown(2);
                     break;
             }
-            if (guessColor3 <= 0) guessColor3 = maxColors;
-            if (guessColor3 > maxColors) guessColor3 = 1;
-            ButtonColorUpdate();
         }
 
         private void btnGuess4_MouseUp(object sender, MouseEventArgs e)
@@ -62,15 +72,25 @@ namespace Mastermind
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    guessColor4 = guessColor4 + 1;
+                    ColorChangerUp(3);
                     break;
 
                 case MouseButtons.Right:
-                    guessColor4 = guessColor4 - 1;
+                    ColorChangerDown(3);
                     break;
             }
-            if (guessColor4 <= 0) guessColor4 = maxColors;
-            if (guessColor4 > maxColors) guessColor4 = 1;
+        }
+
+        public void ColorChangerUp(int button)
+        {
+            guessColor[button] = guessColor[button] + 1;
+            if (guessColor[button] > maxColors) guessColor[button] = 1;
+            ButtonColorUpdate();
+        }
+        public void ColorChangerDown(int button)
+        {
+            guessColor[button] = guessColor[button] - 1;
+            if (guessColor[button] <= 0) guessColor[button] = maxColors;
             ButtonColorUpdate();
         }
 
@@ -85,7 +105,7 @@ namespace Mastermind
             Purple = 6*/
             guessCounter++;
            //Submits guess to the answer key and moves all the rows up one
-            if (guessCounter ==10)
+            if (guessCounter >9)
             {
                 btnR10C1.BackColor = btnR9C1.BackColor;
                 btnR10C2.BackColor = btnR9C2.BackColor;
@@ -97,7 +117,7 @@ namespace Mastermind
                 btnR10C4.Visible = true;
                 label10.Text = label9.Text;
             }
-            if (guessCounter >=9)
+            if (guessCounter >8)
             {
                 btnR9C1.BackColor = btnR8C1.BackColor;
                 btnR9C2.BackColor = btnR8C2.BackColor;
@@ -109,7 +129,7 @@ namespace Mastermind
                 btnR9C4.Visible = true;
                 label9.Text = label8.Text;
             }
-            if (guessCounter >=8)
+            if (guessCounter >7)
             {
                 btnR8C1.BackColor = btnR7C1.BackColor;
                 btnR8C2.BackColor = btnR7C2.BackColor;
@@ -121,7 +141,7 @@ namespace Mastermind
                 btnR8C4.Visible = true;
                 label8.Text = label7.Text;
             }
-            if (guessCounter >=7)
+            if (guessCounter >6)
             {
                 btnR7C1.BackColor = btnR6C1.BackColor;
                 btnR7C2.BackColor = btnR6C2.BackColor;
@@ -133,7 +153,7 @@ namespace Mastermind
                 btnR7C4.Visible = true;
                 label7.Text = label6.Text;
             }
-            if (guessCounter >=6)
+            if (guessCounter >5)
             {
                 btnR6C1.BackColor = btnR5C1.BackColor;
                 btnR6C2.BackColor = btnR5C2.BackColor;
@@ -145,7 +165,7 @@ namespace Mastermind
                 btnR6C4.Visible = true;
                 label6.Text = label5.Text;
             }
-            if (guessCounter >=5)
+            if (guessCounter >4)
             {
                 btnR5C1.BackColor = btnR4C1.BackColor;
                 btnR5C2.BackColor = btnR4C2.BackColor;
@@ -157,7 +177,7 @@ namespace Mastermind
                 btnR5C4.Visible = true;
                 label5.Text = label4.Text;
             }
-            if (guessCounter >=4)
+            if (guessCounter >3)
             {
                 btnR4C1.BackColor = btnR3C1.BackColor;
                 btnR4C2.BackColor = btnR3C2.BackColor;
@@ -169,7 +189,7 @@ namespace Mastermind
                 btnR4C4.Visible = true;
                 label4.Text = label3.Text;
             }
-            if (guessCounter >=3)
+            if (guessCounter >2)
             {
                 btnR3C1.BackColor = btnR2C1.BackColor;
                 btnR3C2.BackColor = btnR2C2.BackColor;
@@ -181,7 +201,7 @@ namespace Mastermind
                 btnR3C4.Visible = true;
                 label3.Text = label2.Text;
             }
-            if (guessCounter >=2)
+            if (guessCounter >1)
             {
                 btnR2C1.BackColor = btnR1C1.BackColor;
                 btnR2C2.BackColor = btnR1C2.BackColor;
@@ -192,25 +212,23 @@ namespace Mastermind
                 btnR2C3.Visible = true;
                 btnR2C4.Visible = true;
                 label2.Text = label1.Text;
-            }
-            if (guessCounter >=1)
-            {
-                btnR1C1.BackColor = btnGuess1.BackColor;
-                btnR1C2.BackColor = btnGuess2.BackColor;
-                btnR1C3.BackColor = btnGuess3.BackColor;
-                btnR1C4.BackColor = btnGuess4.BackColor;
-                btnGuess1.BackColor = SystemColors.Control;
-                btnGuess2.BackColor = SystemColors.Control;
-                btnGuess3.BackColor = SystemColors.Control;
-                btnGuess4.BackColor = SystemColors.Control;
-                btnR1C1.Visible = true;
-                btnR1C2.Visible = true;
-                btnR1C3.Visible = true;
-                btnR1C4.Visible = true;
-            }
+            }      
+            btnR1C1.BackColor = btnGuess1.BackColor;
+            btnR1C2.BackColor = btnGuess2.BackColor;
+            btnR1C3.BackColor = btnGuess3.BackColor;
+            btnR1C4.BackColor = btnGuess4.BackColor;
+            btnGuess1.BackColor = SystemColors.Control;
+            btnGuess2.BackColor = SystemColors.Control;
+            btnGuess3.BackColor = SystemColors.Control;
+            btnGuess4.BackColor = SystemColors.Control;
+            btnR1C1.Visible = true;
+            btnR1C2.Visible = true;
+            btnR1C3.Visible = true;
+            btnR1C4.Visible = true;          
             CheckAnswer();
         }
 
+        //Checks to see if you want to return to the main menu before resetting
         private void btnRestart_Click(object sender, EventArgs e)
         {
             bool isEqual = Enumerable.SequenceEqual(PlayerGuess, GuessChecker);
@@ -308,15 +326,11 @@ namespace Mastermind
             btnGuess3.Visible = false;
             btnGuess4.Visible = false;
 
-            PlayerGuess[0] = 0;
-            PlayerGuess[1] = 0;
-            PlayerGuess[2] = 0;
-            PlayerGuess[3] = 0;
-
-            guessColor1 = 0;
-            guessColor2 = 0;
-            guessColor3 = 0;
-            guessColor4 = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                PlayerGuess[i] = 0;
+                guessColor[i] = 0;
+            }
 
             label1.Text = "";
             label2.Text = "";
@@ -348,17 +362,13 @@ namespace Mastermind
             wrongColor = 0;
             wrongSpot = 0;
             //Cement the guesses//
-            GuessChecker[0] = CorrectAnswer[0];
-            GuessChecker[1] = CorrectAnswer[1];
-            GuessChecker[2] = CorrectAnswer[2];
-            GuessChecker[3] = CorrectAnswer[3];
+            for (int i = 0; i < 4; i++)
+            {
+                GuessChecker[i] = CorrectAnswer[i];
+                PlayerGuess[i] = guessColor[i];
+            }
 
-            PlayerGuess[0] = guessColor1;
-            PlayerGuess[1] = guessColor2;
-            PlayerGuess[2] = guessColor3;
-            PlayerGuess[3] = guessColor4;
-
-            bool isEqual = Enumerable.SequenceEqual(PlayerGuess, GuessChecker); //if you get it right//
+            bool isEqual = Enumerable.SequenceEqual(PlayerGuess, GuessChecker); //if you get all 4 spots right//
             if (isEqual)
             {
                 MessageBox.Show("You WIN!");
@@ -367,7 +377,7 @@ namespace Mastermind
                 label11.Text = "The correct answer was";
                 gameOver = true;
             }
-            else if (guessCounter == 10) //if y
+            else if (guessCounter == 10) //if you run out of chances
             {
                 MessageBox.Show("You Lose!");
                 btnSubmit.Visible = false;
@@ -377,191 +387,64 @@ namespace Mastermind
             }
             else
             {
-                if (guessColor1 == GuessChecker[0])
+                for (int i = 0; i < 4; i++) //Checks if colors match
                 {
-                    correctSpot++;
-                    GuessChecker[0] = 0;
-                    guessColor1 = 0;
-                }
-                if (guessColor2 == GuessChecker[1])
-                {
-                    correctSpot++;
-                    GuessChecker[1] = 0;
-                    guessColor2 = 0;
-                }
-                if (guessColor3 == GuessChecker[2])
-                {
-                    correctSpot++;
-                    GuessChecker[2] = 0;
-                    guessColor3 = 0;
-                }
-                if (guessColor4 == GuessChecker[3])
-                {
-                    correctSpot++;
-                    GuessChecker[3] = 0;
-                    guessColor4 = 0;
-                }
-                if (GuessChecker[0] != 0)
-                {
-                    if (GuessChecker[0] == guessColor2)
+                    if (guessColor[i] == GuessChecker[i])
                     {
-                        wrongSpot++;
-                        GuessChecker[0] = 0;
-                        guessColor2 = 0;
-                    }
-                    else if (GuessChecker[0] == guessColor3)
-                    {
-                        wrongSpot++;
-                        GuessChecker[0] = 0;
-                        guessColor3 = 0;
-                    }
-                    else if (GuessChecker[0] == guessColor4)
-                    {
-                        wrongSpot++;
-                        GuessChecker[0] = 0;
-                        guessColor4 = 0;
-                    }
-                    else
-                    {
-                        wrongColor++;
-                        GuessChecker[0] = 0;
+                        correctSpot++;
+                        GuessChecker[i] = 0;
+                        guessColor[i] = 0;
                     }
                 }
-                if (GuessChecker[1] != 0)
+                for (int i = 0; i < 4; i++)
                 {
-                    if (GuessChecker[1] == guessColor1)
+                    if (GuessChecker[i] != 0)
                     {
-                        wrongSpot++;
-                        GuessChecker[1] = 0;
-                        guessColor1 = 0;
-                    }
-                    else if (GuessChecker[1] == guessColor3)
-                    {
-                        wrongSpot++;
-                        GuessChecker[1] = 0;
-                        guessColor3 = 0;
-                    }
-                    else if (GuessChecker[1] == guessColor4)
-                    {
-                        wrongSpot++;
-                        GuessChecker[1] = 0;
-                        guessColor4 = 0;
-                    }
-                    else
-                    {
-                        wrongColor++;
-                        GuessChecker[1] = 0;
-                    }
-                }
-                if (GuessChecker[2] != 0)
-                {
-                    if (GuessChecker[2] == guessColor1)
-                    {
-                        wrongSpot++;
-                        GuessChecker[2] = 0;
-                        guessColor1 = 0;
-                    }
-                    else if (GuessChecker[2] == guessColor2)
-                    {
-                        wrongSpot++;
-                        GuessChecker[2] = 0;
-                        guessColor2 = 0;
-                    }
-                    else if (GuessChecker[2] == guessColor4)
-                    {
-                        wrongSpot++;
-                        GuessChecker[2] = 0;
-                        guessColor4 = 0;
-                    }
-                    else
-                    {
-                        wrongColor++;
-                        GuessChecker[0] = 0;
-                    }
-                }
-                if (GuessChecker[3] != 0)
-                {
-                    if (GuessChecker[3] == guessColor1)
-                    {
-                        wrongSpot++;
-                        GuessChecker[3] = 0;
-                        guessColor1 = 0;
-                    }
-                    else if (GuessChecker[3] == guessColor2)
-                    {
-                        wrongSpot++;
-                        GuessChecker[2] = 0;
-                        guessColor2 = 0;
-                    }
-                    else if (GuessChecker[3] == guessColor3)
-                    {
-                        wrongSpot++;
-                        GuessChecker[3] = 0;
-                        guessColor3 = 0;
-                    }
-                    else
-                    {
-                        wrongColor++;
-                        GuessChecker[3] = 0;
+                        var skip = false;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (GuessChecker[i] == guessColor[j])//Checks if colors are in wrong spot
+                            {
+                                wrongSpot++;
+                                GuessChecker[i] = 0;
+                                guessColor[j] = 0;
+                                skip = true;
+                                break;
+                            }                   
+                        }
+                        if (!skip)
+                        {
+                            wrongColor++;
+                            GuessChecker[i] = 0;
+                        }
                     }
                 }
             }
             if (correctSpot != 0)
-            {
                 label1.Text = correctSpot + " Correct ";
-            }
             if (wrongSpot != 0)
-            {
                 label1.Text = label1.Text + wrongSpot + " in wrong spot ";
-            }
             if (wrongColor !=0)
-            {
                 label1.Text = label1.Text + wrongColor + " incorrect";
-            }
-            guessColor1 = 0;
-            guessColor2 = 0;
-            guessColor3 = 0;
-            guessColor4 = 0;
+
+            for (int i = 0; i < 4; i++)
+                guessColor[i] = 0;
         }
 
-        private void btnGuess1_MouseUp(object sender, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButtons.Left:
-                    guessColor1 = guessColor1 + 1;
-                    break;
-
-                case MouseButtons.Right:
-                    guessColor1 = guessColor1 - 1;
-                    break;
-            }
-            if (guessColor1 <= 0) guessColor1 = maxColors;
-            if (guessColor1 > maxColors) guessColor1 = 1;
-            ButtonColorUpdate();
-        }
+        
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-
             Random randomnumber = new Random();
             
-            if (radioButton2.Checked==true)
-            {
+            if (radioButton2.Checked==true)//generates the answer key
                 maxColors = 4;
-            }
             else if (radioButton3.Checked==true)
-            {
                 maxColors = 5;
-            }
             else if (radioButton4.Checked==true)
-            {
                 maxColors = 6;
-            }
-            CorrectAnswer[0] = randomnumber.Next(1, maxColors + 1);
-            CorrectAnswer[1] = randomnumber.Next(1, maxColors + 1);
-            CorrectAnswer[2] = randomnumber.Next(1, maxColors + 1);
-            CorrectAnswer[3] = randomnumber.Next(1, maxColors + 1);
+            for (int i = 0; i < 4; i++)
+                CorrectAnswer[i] = randomnumber.Next(1, maxColors + 1);
             groupBox1.Visible = false;
             btnGuess1.Visible = true;
             btnGuess2.Visible = true;
@@ -572,7 +455,7 @@ namespace Mastermind
             label12.Text = "Current Guess";
         }
 
-        private void ShowAnswer()
+        private void ShowAnswer() //reveals answer
         {
             switch (CorrectAnswer[0])
             {
@@ -666,7 +549,7 @@ namespace Mastermind
 
         private void ButtonColorUpdate()
         {
-            switch (guessColor1)
+            switch (guessColor[0]) //changes color of guess buttons
             {
                 case 1:
                     btnGuess1.BackColor = Color.Red;
@@ -687,7 +570,7 @@ namespace Mastermind
                     btnGuess1.BackColor = Color.Purple;
                     break;
             }
-            switch (guessColor2)
+            switch (guessColor[1])
             {
                 case 1:
                     btnGuess2.BackColor = Color.Red;
@@ -708,7 +591,7 @@ namespace Mastermind
                     btnGuess2.BackColor = Color.Purple;
                     break;
             }
-            switch (guessColor3)
+            switch (guessColor[2])
             {
                 case 1:
                     btnGuess3.BackColor = Color.Red;
@@ -729,7 +612,7 @@ namespace Mastermind
                     btnGuess3.BackColor = Color.Purple;
                     break;
             }
-            switch (guessColor4)
+            switch (guessColor[3])
             {
                 case 1:
                     btnGuess4.BackColor = Color.Red;
