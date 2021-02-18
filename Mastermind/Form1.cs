@@ -330,6 +330,9 @@ namespace Mastermind
             label10.Text = "";
             label11.Text = "";
             label12.Text = "";
+
+            btnRestart.Visible = false;
+            btnSubmit.Visible = false;
         }
 
         public Form1()
@@ -565,6 +568,7 @@ namespace Mastermind
             btnGuess3.Visible = true;
             btnGuess4.Visible = true;
             btnSubmit.Visible = true;
+            btnRestart.Visible = true;
             label12.Text = "Current Guess";
         }
 
